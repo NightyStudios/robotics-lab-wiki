@@ -6,12 +6,15 @@ import { dirname, extname, join } from 'node:path';
 const directory = import.meta.dirname;
 const guidesDirectory = join(directory, '../guides');
 const dependencies = join(directory, 'node_modules');
+const modules = ['app.js', 'markdown.js', 'catalog-search.js', 'next-arm.js', 'arm-scene.js'];
 const files = new Map(
-  ['index.html', 'app.js', 'markdown.js', 'catalog-search.js', 'next-arm.js', 'arm-scene.js', 'styles.css', 'assets/so101-next.webp',
+  ['index.html', ...modules, 'styles.css', 'assets/so101-next.webp',
     'assets/so101-model.bin', 'assets/SO-101-LICENSE.txt']
     .map(name => [name, join(directory, name)]),
 );
 files.set('lib/markdown.js', join(dependencies, 'markdown-it/dist/markdown-it.min.js'));
+files.set('lib/katex.js', join(dependencies, 'katex/dist/katex.min.js'));
+files.set('lib/texmath.js', join(dependencies, 'markdown-it-texmath/texmath.js'));
 files.set('lib/prism.js', join(dependencies, 'prismjs/prism.js'));
 for (const language of ['bash', 'docker', 'python']) {
   files.set(`lib/${language}.js`, join(dependencies, `prismjs/components/prism-${language}.min.js`));
@@ -66,17 +69,25 @@ async function build() {
   const manifest = JSON.stringify(articles, null, 2) + '\n';
   await writeFile(join(outputGuides, 'index.json'), manifest);
 
-  const revision = createHash('sha256')
-    .update(await readFile(join(output, 'app.js')))
-    .update(manifest);
+  const revision = createHash('sha256').update(manifest);
+  for (const [name, source] of files) {
+    if (/\.(?:js|css|html)$/.test(name)) {
+      revision.update(createHash('sha256').update(await readFile(source)).digest());
+    }
+  }
   for (const filename of articles) {
     const markdown = await readFile(join(outputGuides, filename));
     revision.update(createHash('sha256').update(markdown).digest());
   }
   const indexPath = join(output, 'index.html');
   const index = await readFile(indexPath, 'utf8');
-  const version = revision.digest('hex').slice(0, 16);
-  await writeFile(indexPath, index.replace('src="./app.js"', `src="./app.js?v=${version}"`));
+  const version = '?v=' + revision.digest('hex').slice(0, 16);
+  await writeFile(indexPath, index.replace(/((?:src|href)="\.\/[\w/-]+\.(?:js|css))(?=")/g, '$1' + version));
+  await Promise.all(modules.map(async name => {
+    const path = join(output, name);
+    const source = await readFile(path, 'utf8');
+    await writeFile(path, source.replace(/((?:from |import\()'\.\/[\w-]+\.js)(?=')/g, '$1' + version));
+  }));
   console.log(`Готово: dist/ (Markdown — ${articles.length}, изображения — ${names.length - articles.length})`);
 }
 

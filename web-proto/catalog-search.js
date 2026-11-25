@@ -201,6 +201,10 @@ export function highlightArticle(main, query, preferredSection) {
 
     for (let node = walker.nextNode(); node; node = walker.nextNode()) {
       if (!node.length || node.parentElement.closest('.sample figcaption, [hidden]')) continue;
+      if (node.parentElement.closest('math')) {
+        if (nodes.length) collectMatches();
+        continue;
+      }
       const block = node.parentElement.closest(textBlock) ?? root;
       if (block !== current) {
         collectMatches();

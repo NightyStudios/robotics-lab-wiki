@@ -406,6 +406,8 @@ button:disabled { color: var(--muted); background: var(--inset); cursor: default
 .prose blockquote > * + *, .guide-note > * + :not(p) { margin-top: .55em; }
 .prose hr { border: 0; border-top: 1px solid var(--rule); }
 .table-scroll { overflow-x: auto; }
+.prose eqn { display: block; overflow-x: auto; }
+.prose eqn > .katex { display: block; inline-size: max-content; min-inline-size: 100%; }
 .prose table { border-collapse: collapse; font-size: .9rem; }
 .prose td, .prose th { padding: .4rem .6rem; border: 1px solid var(--rule); text-align: left; }
 .prose th { background: var(--inset); }

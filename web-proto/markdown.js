@@ -7,7 +7,11 @@ export function slug(value) {
     .replace(/[^\p{L}\p{M}\p{N}_-]+/gu, '-').replace(/^-+|-+$/g, '');
 }
 
-const markdown = window.markdownit({ html: false });
+const markdown = window.markdownit({ html: false }).use(window.texmath, {
+  engine: window.katex,
+  delimiters: 'dollars',
+  katexOptions: { output: 'mathml', trust: false, maxSize: 10 },
+});
 const renderImage = markdown.renderer.rules.image;
 markdown.renderer.rules.image = (tokens, index, options, env, renderer) => {
   const image = tokens[index];
