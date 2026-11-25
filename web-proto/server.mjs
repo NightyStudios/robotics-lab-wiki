@@ -14,7 +14,9 @@ const files = new Map(
 );
 files.set('lib/markdown.js', join(dependencies, 'markdown-it/dist/markdown-it.min.js'));
 files.set('lib/katex.js', join(dependencies, 'katex/dist/katex.min.js'));
+files.set('lib/katex-LICENSE.txt', join(dependencies, 'katex/LICENSE'));
 files.set('lib/texmath.js', join(dependencies, 'markdown-it-texmath/texmath.js'));
+files.set('lib/texmath-LICENSE.txt', join(dependencies, 'markdown-it-texmath/license.txt'));
 files.set('lib/prism.js', join(dependencies, 'prismjs/prism.js'));
 for (const language of ['bash', 'docker', 'python']) {
   files.set(`lib/${language}.js`, join(dependencies, `prismjs/components/prism-${language}.min.js`));
