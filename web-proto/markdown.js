@@ -10,7 +10,7 @@ export function slug(value) {
 const markdown = window.markdownit({ html: false }).use(window.texmath, {
   engine: window.katex,
   delimiters: 'dollars',
-  katexOptions: { output: 'mathml', trust: false, maxSize: 10 },
+  katexOptions: { output: 'htmlAndMathml', trust: false, maxSize: 10 },
 });
 const renderImage = markdown.renderer.rules.image;
 markdown.renderer.rules.image = (tokens, index, options, env, renderer) => {

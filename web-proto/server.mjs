@@ -13,7 +13,12 @@ const files = new Map(
     .map(name => [name, join(directory, name)]),
 );
 files.set('lib/markdown.js', join(dependencies, 'markdown-it/dist/markdown-it.min.js'));
-files.set('lib/katex.js', join(dependencies, 'katex/dist/katex.min.js'));
+const katexDist = join(dependencies, 'katex/dist');
+files.set('lib/katex.js', join(katexDist, 'katex.min.js'));
+files.set('lib/katex.css', join(katexDist, 'katex.min.css'));
+for (const font of await readdir(join(katexDist, 'fonts'))) {
+  if (font.endsWith('.woff2')) files.set('lib/fonts/' + font, join(katexDist, 'fonts', font));
+}
 files.set('lib/katex-LICENSE.txt', join(dependencies, 'katex/LICENSE'));
 files.set('lib/texmath.js', join(dependencies, 'markdown-it-texmath/texmath.js'));
 files.set('lib/texmath-LICENSE.txt', join(dependencies, 'markdown-it-texmath/license.txt'));
@@ -106,7 +111,7 @@ const contentTypes = {
 async function serve(request, response) {
   response.setHeader('X-Content-Type-Options', 'nosniff');
   response.setHeader('Cache-Control', 'no-cache');
-  response.setHeader('Content-Security-Policy', "default-src 'self'; img-src 'self' https: http:; object-src 'none'; base-uri 'none'; frame-ancestors 'none'");
+  response.setHeader('Content-Security-Policy', "default-src 'self'; style-src-attr 'unsafe-inline'; img-src 'self' https: http:; object-src 'none'; base-uri 'none'; frame-ancestors 'none'");
   if (!['HEAD', 'GET'].includes(request.method)) {
     response.writeHead(405, { Allow: 'GET, HEAD' }).end();
     return;
