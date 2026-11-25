@@ -1,0 +1,14 @@
+{
+  "name": "so101-web-proto",
+  "private": true,
+  "scripts": {
+    "start": "node server.mjs",
+    "build": "node server.mjs --build"
+  },
+  "dependencies": {
+    "@fontsource-variable/golos-text": "5.3.0",
+    "@fontsource/ibm-plex-mono": "5.3.0",
+    "markdown-it": "14.1.1",
+    "prismjs": "1.30.0"
+  }
+}
