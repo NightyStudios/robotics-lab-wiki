@@ -401,7 +401,7 @@ function render({ focus = false } = {}) {
 
 async function loadGuides() {
   try {
-    const index = await fetch('./guides/index.json');
+    const index = await fetch('./guides/index.json', { cache: 'no-cache' });
     if (!index.ok) throw new Error('Guide index unavailable');
     const entries = await index.json();
     if (!Array.isArray(entries)) throw new Error('Invalid guide index');
@@ -412,7 +412,7 @@ async function loadGuides() {
     const listed = guides.filter(guide => files.delete(guide.filename));
     const records = listed.concat(Array.from(files, filename => ({ id: filename, filename })));
     const results = await Promise.allSettled(records.map(async guide => {
-      const response = await fetch('./guides/' + encodeURIComponent(guide.filename));
+      const response = await fetch('./guides/' + encodeURIComponent(guide.filename), { cache: 'no-cache' });
       if (!response.ok) throw new Error('Guide unavailable');
       return prepare({ ...guide, markdown: await response.text() });
     }));
