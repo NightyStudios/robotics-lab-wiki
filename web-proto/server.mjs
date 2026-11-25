@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import { createServer } from 'node:http';
 import { copyFile, lstat, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { dirname, extname, join } from 'node:path';
@@ -62,7 +63,20 @@ async function build() {
   await Promise.all(previous.filter(entry => entry.isFile() && guideFileType(entry.name) && !current.has(entry.name))
     .map(entry => rm(join(outputGuides, entry.name))));
   const articles = names.filter(isGuide);
-  await writeFile(join(outputGuides, 'index.json'), JSON.stringify(articles, null, 2) + '\n');
+  const manifest = JSON.stringify(articles, null, 2) + '\n';
+  await writeFile(join(outputGuides, 'index.json'), manifest);
+
+  const revision = createHash('sha256')
+    .update(await readFile(join(output, 'app.js')))
+    .update(manifest);
+  for (const filename of articles) {
+    const markdown = await readFile(join(outputGuides, filename));
+    revision.update(createHash('sha256').update(markdown).digest());
+  }
+  const indexPath = join(output, 'index.html');
+  const index = await readFile(indexPath, 'utf8');
+  const version = revision.digest('hex').slice(0, 16);
+  await writeFile(indexPath, index.replace('src="./app.js"', `src="./app.js?v=${version}"`));
   console.log(`Готово: dist/ (Markdown — ${articles.length}, изображения — ${names.length - articles.length})`);
 }
 

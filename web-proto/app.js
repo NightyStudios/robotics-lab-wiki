@@ -2,6 +2,8 @@ import { escapeHtml as h, prepare, slug } from './markdown.js';
 import { trackNextArm } from './next-arm.js';
 import { bindCatalogSearch, catalogSearch, highlightArticle } from './catalog-search.js';
 
+const guideVersion = new URL(import.meta.url).search;
+
 const guides = [
   { id: 'linux-101', name: 'Linux', filename: 'linux-101.md' },
   { id: 'docker-101', name: 'Docker', filename: 'docker-101.md' },
@@ -401,7 +403,7 @@ function render({ focus = false } = {}) {
 
 async function loadGuides() {
   try {
-    const index = await fetch('./guides/index.json', { cache: 'no-cache' });
+    const index = await fetch('./guides/index.json' + guideVersion, { cache: 'no-cache' });
     if (!index.ok) throw new Error('Guide index unavailable');
     const entries = await index.json();
     if (!Array.isArray(entries)) throw new Error('Invalid guide index');
@@ -412,7 +414,7 @@ async function loadGuides() {
     const listed = guides.filter(guide => files.delete(guide.filename));
     const records = listed.concat(Array.from(files, filename => ({ id: filename, filename })));
     const results = await Promise.allSettled(records.map(async guide => {
-      const response = await fetch('./guides/' + encodeURIComponent(guide.filename), { cache: 'no-cache' });
+      const response = await fetch('./guides/' + encodeURIComponent(guide.filename) + guideVersion, { cache: 'no-cache' });
       if (!response.ok) throw new Error('Guide unavailable');
       return prepare({ ...guide, markdown: await response.text() });
     }));
