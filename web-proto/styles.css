@@ -499,11 +499,14 @@ button:disabled { color: var(--muted); background: var(--inset); cursor: default
   stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round;
 }
 
-.catalog-assistant { min-inline-size: 0; }
+.catalog-assistant { display: grid; grid-template-columns: minmax(0, 1fr); min-inline-size: 0; }
 .catalog-chat {
-  max-inline-size: 23rem; margin: 0 auto; overflow: hidden;
+  inline-size: min(100%, 28rem); margin: 0 auto; overflow: hidden;
   border: 1px solid var(--rule); border-radius: .65rem;
   color: var(--ink); background: var(--inset);
+}
+@media (min-width: 42rem) {
+  .catalog-chat { inline-size: 28rem; justify-self: end; margin-inline: 0; }
 }
 @supports (grid-template-rows: subgrid) {
   @media (min-width: 42rem) {
@@ -512,13 +515,13 @@ button:disabled { color: var(--muted); background: var(--inset); cursor: default
       grid-area: 2 / 1; align-self: center; padding: 0 0 var(--robot-stage-bottom);
     }
     .catalog-assistant {
-      display: grid; grid-area: 1 / 2 / span 3;
+      grid-area: 1 / 2 / span 3;
       grid-template-rows: subgrid; align-self: stretch;
     }
     .robot-trigger { grid-row: 1 / span 2; grid-template-rows: subgrid; row-gap: 0; }
     .robot-trigger .robot-hint { grid-row: 1; margin-block-end: 1.25rem; }
     .robot-trigger .robot { grid-row: 2; }
-    .catalog-chat { grid-row: 3; inline-size: 100%; }
+    .catalog-chat { grid-row: 3; }
   }
 }
 .catalog-chat-header {
