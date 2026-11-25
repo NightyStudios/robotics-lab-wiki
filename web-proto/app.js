@@ -103,9 +103,6 @@ function wikiCatalog() {
               </span>`).join('')}
             </span>
             ${robot}
-            <span class="robot-chat-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" focusable="false"><path d="M5 5h14v10H11l-4 3v-3H5zM9 10h6"/></svg>
-            </span>
           </button>
           ${catalogSearch()}
         </div>

@@ -494,15 +494,7 @@ button:disabled { color: var(--muted); background: var(--inset); cursor: default
     50% { translate: 0 var(--thought-lift); }
   }
 }
-.robot-chat-icon {
-  display: grid; place-items: center; position: absolute;
-  inset-inline-start: calc(50% + 3.3rem); inset-block-end: max(8%, 1.35rem);
-  inline-size: 2.4rem; block-size: 2.4rem;
-  color: var(--accent); background: var(--sheet); border: 1px solid var(--control-rule); border-radius: .65rem;
-  box-shadow: 0 .15rem 0 var(--inset);
-}
-.robot-trigger:is(:hover, :focus-visible) .robot-chat-icon { border-color: var(--accent); color: var(--accent-active); }
-.robot-chat-icon svg, .catalog-chat button svg {
+.catalog-chat button svg {
   inline-size: 1.25rem; block-size: 1.25rem; fill: none;
   stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round;
 }
