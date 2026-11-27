@@ -1,3 +1,5 @@
+export const guideDataDirectory = 'data';
+
 const imageTypes = new Map([
   ['.avif', 'image/avif'],
   ['.gif', 'image/gif'],
@@ -19,7 +21,7 @@ export function isGuideImageSegment(name) {
 
 export function nestedGuideImageType(path) {
   const [directory, article, filename, extra] = path.split('/');
-  if (directory === 'images' && extra === undefined
+  if (directory === guideDataDirectory && extra === undefined
     && isGuideImageSegment(article) && isGuideImageSegment(filename)) {
     return guideImageType(filename);
   }

@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto';
 import { createServer } from 'node:http';
 import { copyFile, lstat, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { dirname, extname, join } from 'node:path';
-import { guideImageType, isGuideImageSegment, nestedGuideImageType } from './guide-images.js';
+import { guideDataDirectory, guideImageType, isGuideImageSegment, nestedGuideImageType } from './guide-images.js';
 
 const directory = import.meta.dirname;
 const guidesDirectory = join(directory, '../guides');
@@ -46,15 +46,15 @@ async function guideFileNames(root = guidesDirectory) {
   const names = entries.filter(entry => entry.isFile() && guideFileType(entry.name))
     .map(entry => entry.name);
 
-  if (entries.some(entry => entry.name === 'images' && entry.isDirectory())) {
-    const imageRoot = join(root, 'images');
-    const articleDirectories = await readdir(imageRoot, { withFileTypes: true });
+  if (entries.some(entry => entry.name === guideDataDirectory && entry.isDirectory())) {
+    const dataRoot = join(root, guideDataDirectory);
+    const articleDirectories = await readdir(dataRoot, { withFileTypes: true });
     const images = await Promise.all(articleDirectories
       .filter(entry => entry.isDirectory() && isGuideImageSegment(entry.name))
       .map(async article => {
-        const files = await readdir(join(imageRoot, article.name), { withFileTypes: true });
+        const files = await readdir(join(dataRoot, article.name), { withFileTypes: true });
         return files.filter(file => file.isFile())
-          .map(file => 'images/' + article.name + '/' + file.name)
+          .map(file => guideDataDirectory + '/' + article.name + '/' + file.name)
           .filter(nestedGuideImageType);
       }));
     names.push(...images.flat());
@@ -143,7 +143,7 @@ async function serve(request, response) {
       if (type) {
         const file = join(guidesDirectory, filename);
         const safeParents = !filename.includes('/') || (
-          (await lstat(join(guidesDirectory, 'images'))).isDirectory()
+          (await lstat(join(guidesDirectory, guideDataDirectory))).isDirectory()
           && (await lstat(dirname(file))).isDirectory()
         );
         if (safeParents && (await lstat(file)).isFile()) {

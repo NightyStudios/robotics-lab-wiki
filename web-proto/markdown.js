@@ -1,4 +1,4 @@
-import { nestedGuideImageType } from './guide-images.js';
+import { guideDataDirectory, nestedGuideImageType } from './guide-images.js';
 
 export const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, character => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
@@ -17,7 +17,7 @@ const markdown = window.markdownit({ html: false }).use(window.texmath, {
 function nestedGuideImageUrl(url) {
   const relative = url?.replace(/^\.\//, '');
   const path = relative?.split(/[?#]/, 1)[0];
-  if (!path?.startsWith('images/')) return;
+  if (!path?.startsWith(guideDataDirectory + '/')) return;
   try {
     if (nestedGuideImageType(decodeURIComponent(path))) return './guides/' + relative;
   } catch {

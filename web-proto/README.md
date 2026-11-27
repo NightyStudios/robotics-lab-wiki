@@ -82,7 +82,7 @@ server {
         try_files $uri =404;
     }
 
-    location ~* ^/guides/[^./][^/]*\.(avif|gif|jpe?g|png|webp)$ {
+    location ~* ^/guides/(?:data/[^./][^/]*/)?[^./][^/]*\.(avif|gif|jpe?g|png|webp)$ {
         types {
             image/avif avif;
             image/gif gif;

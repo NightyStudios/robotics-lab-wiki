@@ -6,7 +6,7 @@
 
 Что же, скорее всего, у вас на столе уже лежат две коробки с SO-101 и две веб-камеры, на которые мы будем записывать демонстрации. Распакуем коробки и пробежимся по содержимому.
 
-[![Комплект SO-101 и две веб-камеры](images/6so101-assembly/kit-overview.jpg)](images/6so101-assembly/kit-overview.jpg)
+[![Комплект SO-101 и две веб-камеры](data/6so101-assembly/kit-overview.jpg)](data/6so101-assembly/kit-overview.jpg)
 
 - 12 сервоприводов с кабелями и крепежом;
 - Две платы управления шиной сервоприводов и крепёж для плат;
@@ -25,7 +25,7 @@
 
 С виду моторы очень похожи, поэтому проще отличать их по коробкам. На каждой ищите строку вида `ST-3215-CXXX` и ещё до сборки разложите коробки по маркировке, как на фото.
 
-[![Коробки сервоприводов, разложенные по маркировке](images/6so101-assembly/motor-boxes.png)](images/6so101-assembly/motor-boxes.png)
+[![Коробки сервоприводов, разложенные по маркировке](data/6so101-assembly/motor-boxes.png)](data/6so101-assembly/motor-boxes.png)
 
 | Маркировка | Сколько | Куда ставим                                                      |
 | ---------- | ------: | ---------------------------------------------------------------- |
@@ -47,7 +47,7 @@
 
 Начнём с пакета с серыми деталями. Тут всё просто, вставляем резьбовую часть в крепление и вкручиваем прижимной винт. Повторяем ещё три раза и пока откладываем струбцины, они пригодятся, когда будем крепить руки к столу.
 
-[![Четыре собранные струбцины](images/6so101-assembly/clamps.jpg)](images/6so101-assembly/clamps.jpg)
+[![Четыре собранные струбцины](data/6so101-assembly/clamps.jpg)](data/6so101-assembly/clamps.jpg)
 
 ## Сборка ведомой руки
 
@@ -55,19 +55,19 @@
 
 Теперь берём пакет с белыми деталями, из него будем собирать follower. Самая большая деталь на фото — наше основание. Возьмите её и откройте одну из коробок с `C047`. Внутри будут мотор, кабель и пакетик с крепежом. Кабели и крепёж из этих коробок можно складывать вместе, а вот моторы лучше держать отдельно по маркировке.
 
-[![Основание ведомой руки и комплект сервопривода](images/6so101-assembly/base-and-servo-kit.jpg)](images/6so101-assembly/base-and-servo-kit.jpg)
+[![Основание ведомой руки и комплект сервопривода](data/6so101-assembly/base-and-servo-kit.jpg)](data/6so101-assembly/base-and-servo-kit.jpg)
 
 Обычно мотор ставится довольно просто, отверстия под него уже есть в детали. Вставляем его до упора, надеваем металлический диск на вал и притягиваем центральным винтом, а с обратной стороны ставим опорный диск. Сам мотор крепим четырьмя короткими саморезами из пакетика, по два с каждой стороны. Если в пакетике что-то осталось, всё нормально, крепёж идёт с запасом.
 
-[![Первый мотор в основании с установленным диском](images/6so101-assembly/base-servo-and-discs.jpg)](images/6so101-assembly/base-servo-and-discs.jpg)
+[![Первый мотор в основании с установленным диском](data/6so101-assembly/base-servo-and-discs.jpg)](data/6so101-assembly/base-servo-and-discs.jpg)
 
 Наденьте на мотор скобу и зафиксируйте её двумя короткими саморезами по бокам.
 
-[![Скоба для первого мотора](images/6so101-assembly/base-bracket.jpg)](images/6so101-assembly/base-bracket.jpg)
+[![Скоба для первого мотора](data/6so101-assembly/base-bracket.jpg)](data/6so101-assembly/base-bracket.jpg)
 
 Дальше подключаем к мотору два кабеля. Оба разъёма у него одинаковые по назначению, так что выбирайте, из какого удобнее вести провод. Почти во всех деталях для кабелей есть каналы, пользуйтесь ими, чтобы провод не зажало между деталями и чтобы он не натягивался, когда сустав поворачивается.
 
-[![Провод первого мотора в канале основания](images/6so101-assembly/base-cable-routing.jpg)](images/6so101-assembly/base-cable-routing.jpg)
+[![Провод первого мотора в канале основания](data/6so101-assembly/base-cable-routing.jpg)](data/6so101-assembly/base-cable-routing.jpg)
 
 ### Плечо и локоть
 
@@ -75,25 +75,25 @@
 
 | Крепление сверху | Крепление снизу |
 | --- | --- |
-| [![Крепление детали к первому мотору сверху](images/6so101-assembly/shoulder-joint-top.jpg)](images/6so101-assembly/shoulder-joint-top.jpg) | [![Крепление той же детали снизу](images/6so101-assembly/shoulder-joint-bottom.jpg)](images/6so101-assembly/shoulder-joint-bottom.jpg) |
+| [![Крепление детали к первому мотору сверху](data/6so101-assembly/shoulder-joint-top.jpg)](data/6so101-assembly/shoulder-joint-top.jpg) | [![Крепление той же детали снизу](data/6so101-assembly/shoulder-joint-bottom.jpg)](data/6so101-assembly/shoulder-joint-bottom.jpg) |
 
 Дальше повторяем то, что сделали с первым мотором. Вставляем мотор, крепим диски, подключаем кабель и ставим следующую деталь. Смотрите только, какую скобу берёте. На этом шаге нужна та, у которой канал под кабель идёт под наклоном.
 
 | Сторона с кабелем | Обратная сторона |
 | --- | --- |
-| [![Следующий мотор и скоба с наклонным каналом](images/6so101-assembly/inclined-bracket-cable-side.jpg)](images/6so101-assembly/inclined-bracket-cable-side.jpg) | [![Скоба с мотором с обратной стороны](images/6so101-assembly/inclined-bracket-opposite-side.jpg)](images/6so101-assembly/inclined-bracket-opposite-side.jpg) |
+| [![Следующий мотор и скоба с наклонным каналом](data/6so101-assembly/inclined-bracket-cable-side.jpg)](data/6so101-assembly/inclined-bracket-cable-side.jpg) | [![Скоба с мотором с обратной стороны](data/6so101-assembly/inclined-bracket-opposite-side.jpg)](data/6so101-assembly/inclined-bracket-opposite-side.jpg) |
 
 Идём дальше. Берём деталь с первого фото и крепим её к дискам мотора. Ниже показано, как это выглядит с обеих сторон.
 
-[![Деталь верхнего звена](images/6so101-assembly/upper-arm-part.jpg)](images/6so101-assembly/upper-arm-part.jpg)
+[![Деталь верхнего звена](data/6so101-assembly/upper-arm-part.jpg)](data/6so101-assembly/upper-arm-part.jpg)
 
 | Прокладка кабеля | Крепление с обратной стороны |
 | --- | --- |
-| [![Верхнее звено со стороны кабеля](images/6so101-assembly/upper-arm-cable-side.jpg)](images/6so101-assembly/upper-arm-cable-side.jpg) | [![Крепление верхнего звена с обратной стороны](images/6so101-assembly/upper-arm-fasteners.jpg)](images/6so101-assembly/upper-arm-fasteners.jpg) |
+| [![Верхнее звено со стороны кабеля](data/6so101-assembly/upper-arm-cable-side.jpg)](data/6so101-assembly/upper-arm-cable-side.jpg) | [![Крепление верхнего звена с обратной стороны](data/6so101-assembly/upper-arm-fasteners.jpg)](data/6so101-assembly/upper-arm-fasteners.jpg) |
 
 На свободном конце звена поставьте мотор локтя и уложите провод по каналу.
 
-[![Мотор локтя на конце верхнего звена](images/6so101-assembly/elbow-servo.png)](images/6so101-assembly/elbow-servo.png)
+[![Мотор локтя на конце верхнего звена](data/6so101-assembly/elbow-servo.png)](data/6so101-assembly/elbow-servo.png)
 
 ### Предплечье и запястье
 
@@ -101,49 +101,49 @@
 
 | Предплечье со стороны кабеля | Предплечье с обратной стороны |
 | --- | --- |
-| [![Предплечье со стороны кабеля](images/6so101-assembly/forearm-cable-side.jpg)](images/6so101-assembly/forearm-cable-side.jpg) | [![Предплечье с обратной стороны](images/6so101-assembly/forearm-opposite-side.jpg)](images/6so101-assembly/forearm-opposite-side.jpg) |
+| [![Предплечье со стороны кабеля](data/6so101-assembly/forearm-cable-side.jpg)](data/6so101-assembly/forearm-cable-side.jpg) | [![Предплечье с обратной стороны](data/6so101-assembly/forearm-opposite-side.jpg)](data/6so101-assembly/forearm-opposite-side.jpg) |
 
 Выходим на финишную прямую. Ставим скобу с мотором, который будет сгибать запястье.
 
 | Мотор сгиба запястья | Вид с другой стороны |
 | --- | --- |
-| [![Мотор сгиба запястья со стороны кабеля](images/6so101-assembly/wrist-flex-cable-side.png)](images/6so101-assembly/wrist-flex-cable-side.png) | [![Мотор сгиба запястья с обратной стороны](images/6so101-assembly/wrist-flex-opposite-side.png)](images/6so101-assembly/wrist-flex-opposite-side.png) |
+| [![Мотор сгиба запястья со стороны кабеля](data/6so101-assembly/wrist-flex-cable-side.png)](data/6so101-assembly/wrist-flex-cable-side.png) | [![Мотор сгиба запястья с обратной стороны](data/6so101-assembly/wrist-flex-opposite-side.png)](data/6so101-assembly/wrist-flex-opposite-side.png) |
 
 Теперь берём крепление под мотор поворота запястья и прикручиваем его к дискам предыдущего мотора. Вставляем мотор, и тут он крепится двумя короткими саморезами. На вал ставим один диск и затягиваем центральный винт.
 
-[![Кронштейн мотора поворота запястья](images/6so101-assembly/wrist-roll-holder.png)](images/6so101-assembly/wrist-roll-holder.png)
+[![Кронштейн мотора поворота запястья](data/6so101-assembly/wrist-roll-holder.png)](data/6so101-assembly/wrist-roll-holder.png)
 
 | Кабели в узле запястья | Диск и крепёж мотора |
 | --- | --- |
-| [![Узел запястья со стороны кабелей](images/6so101-assembly/wrist-roll-assembly.png)](images/6so101-assembly/wrist-roll-assembly.png) | [![Мотор поворота запястья и два крепления](images/6so101-assembly/wrist-roll-servo.jpg)](images/6so101-assembly/wrist-roll-servo.jpg) |
+| [![Узел запястья со стороны кабелей](data/6so101-assembly/wrist-roll-assembly.png)](data/6so101-assembly/wrist-roll-assembly.png) | [![Мотор поворота запястья и два крепления](data/6so101-assembly/wrist-roll-servo.jpg)](data/6so101-assembly/wrist-roll-servo.jpg) |
 
 ### Захват
 
 Возьмите половинку захвата с посадочным местом под мотор и закрепите её на диске запястья.
 
-[![Первая половина захвата на запястье](images/6so101-assembly/first-gripper-jaw.png)](images/6so101-assembly/first-gripper-jaw.png)
+[![Первая половина захвата на запястье](data/6so101-assembly/first-gripper-jaw.png)](data/6so101-assembly/first-gripper-jaw.png)
 
 Затем установите мотор захвата, подключите его и закрепите вторую половинку захвата. Проверьте, что кабель не будет натягиваться при вращении захвата.
 
-[![Захват ведомой руки в сборе](images/6so101-assembly/follower-gripper.png)](images/6so101-assembly/follower-gripper.png)
+[![Захват ведомой руки в сборе](data/6so101-assembly/follower-gripper.png)](data/6so101-assembly/follower-gripper.png)
 
 ### Плата управления
 
 Что же, рука почти собрана. Берём плату управления и прикручиваем к ней четыре стойки. Сильно тянуть винты не нужно, текстолит хрупче, чем кажется. Достаточно подтянуть их так, чтобы плата не болталась.
 
-[![Плата управления на четырёх стойках](images/6so101-assembly/controller-standoffs.jpg)](images/6so101-assembly/controller-standoffs.jpg)
+[![Плата управления на четырёх стойках](data/6so101-assembly/controller-standoffs.jpg)](data/6so101-assembly/controller-standoffs.jpg)
 
 Возьмите печатное крепление под стойки и прикрутите его с обратной стороны.
 
 | Плата на креплении | Винты с обратной стороны |
 | --- | --- |
-| [![Плата управления на печатном креплении](images/6so101-assembly/controller-mount-front.png)](images/6so101-assembly/controller-mount-front.png) | [![Крепёж платы с обратной стороны](images/6so101-assembly/controller-mount-back.jpg)](images/6so101-assembly/controller-mount-back.jpg) |
+| [![Плата управления на печатном креплении](data/6so101-assembly/controller-mount-front.png)](data/6so101-assembly/controller-mount-front.png) | [![Крепёж платы с обратной стороны](data/6so101-assembly/controller-mount-back.jpg)](data/6so101-assembly/controller-mount-back.jpg) |
 
 Ставим крепление с платой в паз на основании, подключаем кабель первого мотора к разъёму шины и прикручиваем адаптер под разъём питания DC. Перед включением поглядите на маркировку клемм и проверьте полярность проводов. На этом первая рука готова!
 
 | Плата в основании | Готовая ведомая рука |
 | --- | --- |
-| [![Плата в основании с адаптером питания](images/6so101-assembly/controller-power-adapter.png)](images/6so101-assembly/controller-power-adapter.png) | [![Готовая ведомая рука SO-101](images/6so101-assembly/follower-complete.png)](images/6so101-assembly/follower-complete.png) |
+| [![Плата в основании с адаптером питания](data/6so101-assembly/controller-power-adapter.png)](data/6so101-assembly/controller-power-adapter.png) | [![Готовая ведомая рука SO-101](data/6so101-assembly/follower-complete.png)](data/6so101-assembly/follower-complete.png) |
 
 ## Сборка ведущей руки
 
@@ -151,13 +151,13 @@
 
 Вместо захвата у нас будет рукоятка с курком. Ставим крепление на диск запястья, вставляем мотор и крепим курок. На фото видно, как всё это стыкуется.
 
-[![Крепление рукоятки к запястью ведущей руки](images/6so101-assembly/leader-handle-mount.png)](images/6so101-assembly/leader-handle-mount.png)
+[![Крепление рукоятки к запястью ведущей руки](data/6so101-assembly/leader-handle-mount.png)](data/6so101-assembly/leader-handle-mount.png)
 
 И не забудьте про тот самый отдельный саморез, который держит рукоятку в креплении. Куда его вкручивать, обвели красным на правом фото.
 
 | Рукоятка с курком | Отверстие под саморез |
 | --- | --- |
-| [![Рукоятка и курок в сборе](images/6so101-assembly/leader-handle.png)](images/6so101-assembly/leader-handle.png) | [![Отверстие под саморез в рукоятке, обведённое красным](images/6so101-assembly/leader-handle-screw.png)](images/6so101-assembly/leader-handle-screw.png) |
+| [![Рукоятка и курок в сборе](data/6so101-assembly/leader-handle.png)](data/6so101-assembly/leader-handle.png) | [![Отверстие под саморез в рукоятке, обведённое красным](data/6so101-assembly/leader-handle-screw.png)](data/6so101-assembly/leader-handle-screw.png) |
 
 ## Перед первым включением
 
