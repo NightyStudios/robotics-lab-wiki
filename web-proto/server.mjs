@@ -2,11 +2,12 @@ import { createHash } from 'node:crypto';
 import { createServer } from 'node:http';
 import { copyFile, lstat, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { dirname, extname, join } from 'node:path';
+import { guideImageType, isGuideImageSegment, nestedGuideImageType } from './guide-images.js';
 
 const directory = import.meta.dirname;
 const guidesDirectory = join(directory, '../guides');
 const dependencies = join(directory, 'node_modules');
-const modules = ['app.js', 'markdown.js', 'catalog-search.js', 'next-arm.js', 'arm-scene.js'];
+const modules = ['app.js', 'markdown.js', 'guide-images.js', 'catalog-search.js', 'next-arm.js', 'arm-scene.js'];
 const files = new Map(
   ['index.html', ...modules, 'styles.css', 'assets/so101-next.webp',
     'assets/so101-model.bin', 'assets/SO-101-LICENSE.txt']
@@ -31,30 +32,35 @@ for (const subset of ['cyrillic', 'latin']) {
   files.set(`fonts/mono-${subset}.woff2`, join(dependencies, `@fontsource/ibm-plex-mono/files/ibm-plex-mono-${subset}-400-normal.woff2`));
 }
 
-const imageTypes = new Map([
-  ['.avif', 'image/avif'],
-  ['.gif', 'image/gif'],
-  ['.jpeg', 'image/jpeg'],
-  ['.jpg', 'image/jpeg'],
-  ['.png', 'image/png'],
-  ['.webp', 'image/webp'],
-]);
-
 function isGuide(name) {
   return /^[^.].*\.(md|markdown)$/i.test(name) && !/[\/\\\x00]/.test(name);
 }
 
 function guideFileType(name) {
   if (isGuide(name)) return 'text/plain; charset=utf-8';
-  if (!name || name.startsWith('.') || /[\/\\\x00]/.test(name)) return;
-  return imageTypes.get(extname(name).toLowerCase());
+  return guideImageType(name) ?? nestedGuideImageType(name);
 }
 
-async function guideFileNames() {
-  const entries = await readdir(guidesDirectory, { withFileTypes: true });
-  return entries.filter(entry => entry.isFile() && guideFileType(entry.name))
-    .map(entry => entry.name)
-    .sort((left, right) => left.localeCompare(right, 'ru', { numeric: true }));
+async function guideFileNames(root = guidesDirectory) {
+  const entries = await readdir(root, { withFileTypes: true });
+  const names = entries.filter(entry => entry.isFile() && guideFileType(entry.name))
+    .map(entry => entry.name);
+
+  if (entries.some(entry => entry.name === 'images' && entry.isDirectory())) {
+    const imageRoot = join(root, 'images');
+    const articleDirectories = await readdir(imageRoot, { withFileTypes: true });
+    const images = await Promise.all(articleDirectories
+      .filter(entry => entry.isDirectory() && isGuideImageSegment(entry.name))
+      .map(async article => {
+        const files = await readdir(join(imageRoot, article.name), { withFileTypes: true });
+        return files.filter(file => file.isFile())
+          .map(file => 'images/' + article.name + '/' + file.name)
+          .filter(nestedGuideImageType);
+      }));
+    names.push(...images.flat());
+  }
+
+  return names.sort((left, right) => left.localeCompare(right, 'ru', { numeric: true }));
 }
 
 async function build() {
@@ -67,11 +73,14 @@ async function build() {
     await mkdir(dirname(target), { recursive: true });
     await copyFile(source, target);
   }));
-  await Promise.all(names.map(name => copyFile(join(guidesDirectory, name), join(outputGuides, name))));
+  await Promise.all(names.map(async name => {
+    const target = join(outputGuides, name);
+    await mkdir(dirname(target), { recursive: true });
+    await copyFile(join(guidesDirectory, name), target);
+  }));
   const current = new Set(names);
-  const previous = await readdir(outputGuides, { withFileTypes: true });
-  await Promise.all(previous.filter(entry => entry.isFile() && guideFileType(entry.name) && !current.has(entry.name))
-    .map(entry => rm(join(outputGuides, entry.name))));
+  const previous = await guideFileNames(outputGuides);
+  await Promise.all(previous.filter(name => !current.has(name)).map(name => rm(join(outputGuides, name))));
   const articles = names.filter(isGuide);
   const manifest = JSON.stringify(articles, null, 2) + '\n';
   await writeFile(join(outputGuides, 'index.json'), manifest);
@@ -133,7 +142,11 @@ async function serve(request, response) {
       const type = guideFileType(filename);
       if (type) {
         const file = join(guidesDirectory, filename);
-        if ((await lstat(file)).isFile()) {
+        const safeParents = !filename.includes('/') || (
+          (await lstat(join(guidesDirectory, 'images'))).isDirectory()
+          && (await lstat(dirname(file))).isDirectory()
+        );
+        if (safeParents && (await lstat(file)).isFile()) {
           send(type, await readFile(file));
           return;
         }

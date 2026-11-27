@@ -1,3 +1,5 @@
+import { nestedGuideImageType } from './guide-images.js';
+
 export const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, character => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
 })[character]);
@@ -12,13 +14,38 @@ const markdown = window.markdownit({ html: false }).use(window.texmath, {
   delimiters: 'dollars',
   katexOptions: { output: 'htmlAndMathml', trust: false, maxSize: 10 },
 });
+function nestedGuideImageUrl(url) {
+  const relative = url?.replace(/^\.\//, '');
+  const path = relative?.split(/[?#]/, 1)[0];
+  if (!path?.startsWith('images/')) return;
+  try {
+    if (nestedGuideImageType(decodeURIComponent(path))) return './guides/' + relative;
+  } catch {
+    // A malformed URL can be rendered by the default rule without rewriting it.
+  }
+}
+
 const renderImage = markdown.renderer.rules.image;
 markdown.renderer.rules.image = (tokens, index, options, env, renderer) => {
   const image = tokens[index];
   const source = image.attrGet('src');
+  const nested = nestedGuideImageUrl(source);
   const filename = /^(?:\.\/)?([^.\/:\\?#][^\/:\\?#]*\.[a-z0-9]+(?:[?#].*)?)$/i.exec(source)?.[1];
-  if (filename) image.attrSet('src', './guides/' + filename);
+  if (nested) {
+    image.attrSet('src', nested);
+    image.attrJoin('class', 'article-photo');
+    image.attrSet('loading', 'lazy');
+  } else if (filename) image.attrSet('src', './guides/' + filename);
   return renderImage(tokens, index, options, env, renderer);
+};
+
+const renderLinkOpen = markdown.renderer.rules.link_open;
+markdown.renderer.rules.link_open = (tokens, index, options, env, renderer) => {
+  const link = tokens[index];
+  const nested = nestedGuideImageUrl(link.attrGet('href'));
+  if (nested) link.attrSet('href', nested);
+  return renderLinkOpen?.(tokens, index, options, env, renderer)
+    ?? renderer.renderToken(tokens, index, options);
 };
 
 const keySequence = /<kbd>[^<>\r\n]+<\/kbd>(?:[ \t]*\+[ \t]*<kbd>[^<>\r\n]+<\/kbd>)*/iy;

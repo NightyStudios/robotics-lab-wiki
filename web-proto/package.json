@@ -1,6 +1,7 @@
 {
   "name": "so101-web-proto",
   "private": true,
+  "type": "module",
   "scripts": {
     "start": "node server.mjs",
     "build": "node server.mjs --build"

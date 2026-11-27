@@ -367,6 +367,8 @@ button:disabled { color: var(--muted); background: var(--inset); cursor: default
 .prose img, .article-head img { max-width: 100%; height: auto; }
 .article-figure { inline-size: fit-content; max-inline-size: 100%; margin-inline: auto; }
 .article-figure img { display: block; }
+.article-figure:has(.article-photo) { max-inline-size: min(100%, 34rem); }
+.article-figure .article-photo { max-block-size: 28rem; margin-inline: auto; }
 .article-figure figcaption {
   margin-block-start: .45rem; color: var(--muted); text-align: center;
   font-size: .875em; line-height: 1.45; overflow-wrap: anywhere;
@@ -413,6 +415,10 @@ button:disabled { color: var(--muted); background: var(--inset); cursor: default
   inline-size: max-content; min-inline-size: 100%; font-size: clamp(.95em, 4.6vw, 1.06em);
 }
 .prose table { border-collapse: collapse; font-size: .9rem; }
+.prose table:has(td .article-photo) {
+  inline-size: min(100%, 48rem); table-layout: fixed; margin-inline: auto;
+}
+.prose table .article-photo { display: block; margin-inline: auto; }
 .prose td, .prose th { padding: .4rem .6rem; border: 1px solid var(--rule); text-align: left; }
 .prose th { background: var(--inset); }
 .prose .align-center { text-align: center; }
